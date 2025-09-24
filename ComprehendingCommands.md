@@ -556,4 +556,3 @@ pwn.college{I7EPmslQ9pDf1ggG8vOs1ywWDWq.QXyMDO0wCN2gjNzEzW}
 I learnt how to find files and directories in Linux. The find function also takes optional arguments which we can use to search in a certain location or by a certain name.
 
 ### References
-

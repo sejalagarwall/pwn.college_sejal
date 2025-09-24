@@ -156,3 +156,130 @@ I learnt about the diff commmand. It is used to differentiate between files. The
 ### References
 
 ## Listing files
+So far, we've told you which files to interact with. But directories can have lots of files (and other directories) inside them, and we won't always be here to tell you their names. You'll need to learn to list their contents using the ls command!
+
+ls will list files in all the directories provided to it as arguments, and in the current directory if no arguments are provided. Observe:
+
+hacker@dojo:\~$ ls /challenge
+run
+hacker@dojo:\~$ ls
+Desktop    Downloads  Pictures  Templates
+Documents  Music      Public    Videos
+hacker@dojo:\~$ ls /home/hacker
+Desktop    Downloads  Pictures  Templates
+Documents  Music      Public    Videos
+hacker@dojo:\~$
+In this challenge, we've named /challenge/run with some random name! List the files in /challenge to find it.
+
+### Solve
+**Flag:** `pwn.college{AmEgUshjK4XI-lkJwFqH3tDdj3N.QX4IDO0wCN2gjNzEzW}`
+
+I listed the files in /challenge and found the file to be runned and then I called the file to get the flag.
+```
+hacker@commands~listing-files:~$ ls /challenge
+3853-renamed-run-12236  DESCRIPTION.md
+hacker@commands~listing-files:~$ /challenge/3853-renamed-run-12236
+Yahaha, you found me! Here is your flag:
+pwn.college{AmEgUshjK4XI-lkJwFqH3tDdj3N.QX4IDO0wCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt about the ls command and how it is used to list all files in a directory. 
+
+### References
+
+## Touching files
+Of course, you can also create files! There are several ways to do this, but we'll look at a simple command here. You can create a new, blank file by touching it with the touch command:
+
+hacker@dojo:\~$ cd /tmp
+hacker@dojo:/tmp$ ls
+hacker@dojo:/tmp$ touch pwnfile
+hacker@dojo:/tmp$ ls
+pwnfile
+hacker@dojo:/tmp$
+It's that simple! In this level, please create two files: /tmp/pwn and /tmp/college, and run /challenge/run to get your flag!
+
+### Solve
+**Flag:** `pwn.college{8EIdT7DDwsHMApJwIyN_zKmzQGU.QXwMDO0wCN2gjNzEzW}`
+
+I changed directories to create the files in /tmp. I used touch command to create the two files and ls command to check if they have been created. 
+```
+hacker@commands~touching-files:~$ cd /tmp
+hacker@commands~touching-files:/tmp$ touch pwn
+hacker@commands~touching-files:/tmp$ touch college
+hacker@commands~touching-files:/tmp$ ls
+bin  college  hsperfdata_root  pwn  tmp.TpSOPGOVKK
+hacker@commands~touching-files:/tmp$ /challenge/run
+Success! Here is your flag:
+pwn.college{8EIdT7DDwsHMApJwIyN_zKmzQGU.QXwMDO0wCN2gjNzEzW}
+```
+
+### New Learnings
+The touch command is used to create new files in a directory. You have to be in the specific directory you want to create the file in.
+
+### References
+
+## Removing files
+Files are all around you. Like candy wrappers, there'll eventually be too many of them. In this level, we'll learn to clean up!
+
+In Linux, you remove files with the rm command, as so:
+
+hacker@dojo:\~$ touch PWN
+hacker@dojo:\~$ touch COLLEGE
+hacker@dojo:\~$ ls
+COLLEGE     PWN
+hacker@dojo:\~$ rm PWN
+hacker@dojo:\~$ ls
+COLLEGE
+hacker@dojo:\~$
+Let's practice. This challenge will create a delete_me file in your home directory! Delete it, then run /challenge/check, which will make sure you've deleted it and then give you the flag!
+
+### Solve
+**Flag:** `pwn.college{MH11HgKnz8PTFjeHFmVhTzgzdJK.QX2kDM1wCN2gjNzEzW}`
+
+I deleted a file using the rm command.
+```
+hacker@commands~removing-files:~$ rm delete_me
+hacker@commands~removing-files:~$ /challenge/check
+Excellent removal. Here is your reward:
+pwn.college{MH11HgKnz8PTFjeHFmVhTzgzdJK.QX2kDM1wCN2gjNzEzW}
+```
+
+### New Learnings
+I got to know about the rm command to delete files. I also tested it around by being in a different directory and learnt that you need to be in the directory you are deleting files from.
+
+### References
+
+## Moving files
+You can also move files around with the mv command. The usage is simple:
+
+hacker@dojo:\~$ ls
+my-file
+hacker@dojo:\~$ cat my-file
+PWN!
+hacker@dojo:\~$ mv my-file your-file
+hacker@dojo:\~$ ls
+your-file
+hacker@dojo:\~$ cat your-file
+PWN!
+hacker@dojo:\~$
+This challenge wants you to move the /flag file into /tmp/hack-the-planet (do it)! When you're done, run /challenge/check, which will check things out and give the flag to you.
+
+### Solve
+**Flag:** `pwn.college{0bu9Q-D-U55iBulY8LIpOo6fOez.0VOxEzNxwCN2gjNzEzW}`
+
+I used the mv command to move the file to a different directory. I initially thought you had to be in the /tmp directory to move the file to /tmp/..., however you can move files using their absolute paths.
+```
+hacker@commands~moving-files:~$ mv /flag /tmp/hack-the-planet
+Correct! Performing 'mv /flag /tmp/hack-the-planet'.
+hacker@commands~moving-files:~$ /challenge/check
+Congrats! You successfully moved the flag to /tmp/hack-the-planet! Here it is:
+pwn.college{0bu9Q-D-U55iBulY8LIpOo6fOez.0VOxEzNxwCN2gjNzEzW}
+```
+
+### New Learnings
+You can use the mv command to move and rename files. 
+
+### References
+
+## 

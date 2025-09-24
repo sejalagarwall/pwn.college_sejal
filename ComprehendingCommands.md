@@ -282,4 +282,131 @@ You can use the mv command to move and rename files.
 
 ### References
 
-## 
+## Hidden files
+Interestingly, ls doesn't list all the files by default. Linux has a convention where files that start with a . don't show up by default in ls and in a few other contexts. To view them with ls, you need to invoke ls with the -a flag, as so:
+
+hacker@dojo:\~$ touch pwn
+hacker@dojo:\~$ touch .college
+hacker@dojo:\~$ ls
+pwn
+hacker@dojo:\~$ ls -a
+.college	pwn
+hacker@dojo:\~$
+Now, it's your turn! Go find the flag, hidden as a dot-prepended file in /.
+
+### Solve
+**Flag:** `pwn.college{IuIVYKwz2QCZXNHou8VzTu_7OmN.QXwUDO0wCN2gjNzEzW}`
+
+I changed directory to / because the file was in that directory. I used ls with -a flag to view the hidden files. Using the cat command, I read the file and got the flag.
+```
+hacker@commands~hidden-files:~$ cd /
+hacker@commands~hidden-files:/$ ls -a
+.           .flag-245331527815170  challenge  home   lib64   mnt  proc  sbin  tmp
+..          bin                    dev        lib    libx32  nix  root  srv   usr
+.dockerenv  boot                   etc        lib32  media   opt  run   sys   var
+hacker@commands~hidden-files:/$ cat .flag-245331527815170
+pwn.college{IuIVYKwz2QCZXNHou8VzTu_7OmN.QXwUDO0wCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt that hidden files exist and are prepended with a dot. I learnt how to access them using ls and -a flag.
+
+### References
+
+## An Epic Filesystem Quest
+With your knowledge of cd, ls, and cat, we're ready to play a little game!
+
+We'll start it out in /. Normally:
+
+hacker@dojo:\~$ cd /
+hacker@dojo:/$ ls
+bin   challenge  etc   home  lib32  libx32  mnt  proc  run   srv  tmp  var
+boot  dev        flag  lib   lib64  media   opt  root  sbin  sys  usr
+That's a lot of contents! One day, you will be quite familiar with them, but already, you might recognize the flag file and the challenge directory.
+
+In this challenge, I have hidden the flag! Here, you will use ls and cat to follow my breadcrumbs and find it! Here's how it'll work:
+
+Your first clue is in /. Head on over there.
+Look around with ls. There'll be a file named HINT or CLUE or something along those lines!
+cat that file to read the clue!
+Depending on what the clue says, head on over to the next directory (or don't!).
+Follow the clues to the flag!
+Good luck!
+
+### Solve
+**Flag:** `pwn.college{sFYLP9nK_3Cs-cefh527_mO9dch.QX5IDO0wCN2gjNzEzW}`
+
+I followed the clues and instructions to reach the flag. I found it easier to cd into the directory and then using ls and cat to read the clues.
+```
+hacker@commands~an-epic-filesystem-quest:~$ cd /
+hacker@commands~an-epic-filesystem-quest:/$ ls
+MESSAGE  challenge  flag  lib32   media  opt   run   sys  var
+bin      dev        home  lib64   mnt    proc  sbin  tmp
+boot     etc        lib   libx32  nix    root  srv   usr
+hacker@commands~an-epic-filesystem-quest:/$ cat MESSAGE
+Lucky listing!
+The next clue is in: /opt/linux/linux-5.4/include/config/i8253
+hacker@commands~an-epic-filesystem-quest:/$ ls /opt/linux/linux-5.4/include/config/
+i8253
+SECRET  lock.h
+hacker@commands~an-epic-filesystem-quest:/$ cat /opt/linux/linux-5.4/include/config/i8253/SECRET
+Tubular find!
+The next clue is in: /usr/share/javascript/mathjax/unpacked/jax/output/HTML-CSS/fonts/Asana-Math/DoubleStruck
+
+The next clue is **delayed** --- it will not become readable until you enter the directory with 'cd'.
+hacker@commands~an-epic-filesystem-quest:/$ cd /usr/share/javascript/mathjax/unpacked/jax/output/HTML-CSS/fonts/Asana-Math/DoubleStruck
+hacker@commands~an-epic-filesystem-quest:/usr/share/javascript/mathjax/unpacked/jax/output/HTML-CSS/fonts/Asana-Math/DoubleStruck$ ls
+ALERT  Regular
+hacker@commands~an-epic-filesystem-quest:/usr/share/javascript/mathjax/unpacked/jax/output/HTML-CSS/fonts/Asana-Math/DoubleStruck$ cat ALERT
+Yahaha, you found me!
+The next clue is in: /usr/share/doc/libedit-dev
+
+Watch out! The next clue is **trapped**. You'll need to read it out without 'cd'ing into the directory; otherwise, the clue will self destruct!
+hacker@commands~an-epic-filesystem-quest:/usr/share/javascript/mathjax/unpacked/jax/output/HTML-CSS/fonts/Asana-Math/DoubleStruck$ ls /usr/share/doc/libedit-dev
+WHISPER-TRAPPED  changelog.Debian.gz  copyright  examples
+hacker@commands~an-epic-filesystem-quest:/usr/share/javascript/mathjax/unpacked/jax/output/HTML-CSS/fonts/Asana-Math/DoubleStruck$ cat /usr/share/doc/libedit-dev/WHISPER-TRAPPED
+Yahaha, you found me!
+The next clue is in: /usr/local/lib/python3.8/dist-packages/pip/_vendor/packaging/__pycache__
+
+Watch out! The next clue is **trapped**. You'll need to read it out without 'cd'ing into the directory; otherwise, the clue will self destruct!
+hacker@commands~an-epic-filesystem-quest:/usr/share/javascript/mathjax/unpacked/jax/output/HTML-CSS/fonts/Asana-Math/DoubleStruck$ ls /usr/local/lib/python3.8/dist-packages/pip/_vendor/packaging/__pycache__
+INSIGHT-TRAPPED            _parser.cpython-38.pyc      requirements.cpython-38.pyc
+__init__.cpython-38.pyc    _structures.cpython-38.pyc  specifiers.cpython-38.pyc
+_elffile.cpython-38.pyc    _tokenizer.cpython-38.pyc   tags.cpython-38.pyc
+_manylinux.cpython-38.pyc  markers.cpython-38.pyc      utils.cpython-38.pyc
+_musllinux.cpython-38.pyc  metadata.cpython-38.pyc     version.cpython-38.pyc
+hacker@commands~an-epic-filesystem-quest:/usr/share/javascript/mathjax/unpacked/jax/output/HTML-CSS/fonts/Asana-Math/DoubleStruck$ cat /usr/local/lib/python3.8/dist-packages/pip/_vendor/packaging/__pycache__/INSIGHT-TRAPPED
+Yahaha, you found me!
+The next clue is in: /usr/lib/jvm/java-17-openjdk-amd64/lib/server
+
+The next clue is **delayed** --- it will not become readable until you enter the directory with 'cd'.
+hacker@commands~an-epic-filesystem-quest:/usr/share/javascript/mathjax/unpacked/jax/output/HTML-CSS/fonts/Asana-Math/DoubleStruck$ cd /usr/lib/jvm/java-17-openjdk-amd64/lib/server
+hacker@commands~an-epic-filesystem-quest:/usr/lib/jvm/java-17-openjdk-amd64/lib/server$ ls
+DISPATCH  classes.jsa  classes_nocoops.jsa  libjsig.so  libjvm.so
+hacker@commands~an-epic-filesystem-quest:/usr/lib/jvm/java-17-openjdk-amd64/lib/server$ cat DISPATCH
+Great sleuthing!
+The next clue is in: /usr/lib/x86_64-linux-gnu/perl-base/unicore/lib/WB
+
+The next clue is **hidden** --- its filename starts with a '.' character. You'll need to look for it using special options to 'ls'.
+hacker@commands~an-epic-filesystem-quest:/usr/lib/jvm/java-17-openjdk-amd64/lib/server$ cd /usr/lib/x86_64-linux-gnu/perl-base/unicore/lib/WB
+hacker@commands~an-epic-filesystem-quest:/usr/lib/x86_64-linux-gnu/perl-base/unicore/lib/WB$ ls -a
+.   .NOTE  Extend.pl  HL.pl  LE.pl  ML.pl  NU.pl        XX.pl
+..  EX.pl  FO.pl      KA.pl  MB.pl  MN.pl  WSegSpac.pl
+hacker@commands~an-epic-filesystem-quest:/usr/lib/x86_64-linux-gnu/perl-base/unicore/lib/WB$ cat .NOTE
+Yahaha, you found me!
+The next clue is in: /usr/lib/python3/dist-packages/automat
+hacker@commands~an-epic-filesystem-quest:/usr/lib/x86_64-linux-gnu/perl-base/unicore/lib/WB$ cd /usr/lib/python3/dist-packages/automat
+hacker@commands~an-epic-filesystem-quest:/usr/lib/python3/dist-packages/automat$ ls
+BLUEPRINT    __pycache__  _discover.py       _methodical.py  _visualize.py
+__init__.py  _core.py     _introspection.py  _test
+hacker@commands~an-epic-filesystem-quest:/usr/lib/python3/dist-packages/automat$ cat BLUEPRINT
+Yahaha, you found me!
+The next clue is in: /opt/linux/linux-5.4/include/config/gdb
+hacker@commands~an-epic-filesystem-quest:/usr/lib/python3/dist-packages/automat$ ls /opt/linux/linux-5.4/include/config/gdb
+EVIDENCE  scripts.h
+hacker@commands~an-epic-filesystem-quest:/usr/lib/python3/dist-packages/automat$ cat /opt/linux/linux-5.4/include/config/gdb/EVIDENCE
+CONGRATULATIONS! Your perserverence has paid off, and you have found the flag!
+It is: pwn.college{sFYLP9nK_3Cs-cefh527_mO9dch.QX5IDO0wCN2gjNzEzW}
+```
+
+### New Learnings

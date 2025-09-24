@@ -9,6 +9,8 @@ Start the challenge, launch a terminal, invoke the pwn program using its absolut
 
 ### Solve
 **Flag:** `pwn.college{ID-9LZdJ0JUoeJDusrrqjlvKo3Z.QX4cTO0wCN2gjNzEzW}`
+
+I called the program using its absolute path from the root.
 ```
 hacker@paths~the-root:~$ /pwn
 BOOM!!!
@@ -28,6 +30,8 @@ This challenge again requires you to execute it by invoking its absolute path. Y
 
 ### Solve
 **Flag:** `pwn.college{0vTo5ONn_FX25lWVLEpzwd9JeFg.QX1QTN0wCN2gjNzEzW}`
+
+I called the program which was located in a different directory using its absolute path.
 ```
 hacker@paths~program-and-absolute-paths:~$ /challenge/run
 Correct!!!
@@ -53,6 +57,8 @@ This challenge will require you to execute the /challenge/run program from a spe
 
 ### Solve
 **Flag:** `pwn.college{sZKsStU-MnpWvOlmkr9yfMiwlOL.QX2QTN0wCN2gjNzEzW}`
+
+I entered the path first. It gave me an error and told me the correct directory. Then I changed directories and then executed the same command.
 ```
 hacker@paths~position-thy-self:~$ /challenge/run
 Incorrect...
@@ -84,6 +90,8 @@ This challenge will require you to execute the /challenge/run program from a spe
 
 ### Solve
 **Flag:** `pwn.college{4oJfKjbGQM9MvowdqaBCTp6tjIq.QX3QTN0wCN2gjNzEzW}`
+
+I had the same approach as the previous challenge. I had to get the terminal to show me the correct directory and then I had cd to it to get the flag.
 ```
 hacker@paths~position-elsewhere:~$ /challenge/run
 Incorrect...
@@ -115,6 +123,8 @@ This challenge will require you to execute the /challenge/run program from a spe
 
 ### Solve
 **Flag:** `pwn.college{YbmOfz7_QMYVfNLfwpftocY_jt6.QX4QTN0wCN2gjNzEzW}`
+
+I ran the command to get the terminal to show the correct directory to me and then I had to cd to it to execute the command and obtain the flag.
 ```
 hacker@paths~position-yet-elsewhere:~$ /challenge/run
 Incorrect...
@@ -152,6 +162,8 @@ Let's try it here! You'll need to run /challenge/run using a relative path while
 
 ### Solve
 **Flag:** `pwn.college{MxUb3IndeqjG17c7s6w-SQfpQj8.QX5QTN0wCN2gjNzEzW}`
+
+I switched directories from ~ to /. Then I called the program using a relative path and got the flag.
 ```
 hacker@paths~implicit-relative-paths-from-:~$ cd /
 hacker@paths~implicit-relative-paths-from-:/$ challenge/run
@@ -187,6 +199,8 @@ This challenge will get you using . in your relative paths. Get ready!
 
 ### Solve
 **Flag:** `pwn.college{U0kzN0ryfxUeHeQdHbk4pGOP01P.QXwUTN0wCN2gjNzEzW}`
+
+Initially, I tried calling the program using explicit relative paths without switching directories. It gave me an incorrect answer and I tried again after switching directories. The '.' references the current directory and that is why switching was required.
 ```
 hacker@paths~explicit-relative-paths-from-:~$ cd /
 hacker@paths~explicit-relative-paths-from-:/$ ./challenge/run
@@ -215,6 +229,8 @@ We'll explore the mechanisms behind this concept later, but in this challenge, w
 
 ### Solve
 **Flag:** `pwn.college{QBI5dKDj8s737BDAnuUougfSLV4.QXxUTN0wCN2gjNzEzW}`
+
+I changed directories to challenge and then used '.' to reference challenge and tell Linux I am calling a program 'run' from that directory.
 ```
 hacker@paths~implicit-relative-path:/$ cd /challenge
 hacker@paths~implicit-relative-path:/challenge$ ./run
@@ -264,6 +280,8 @@ hacker@dojo:~$ /challenge/run YOUR_PATH_HERE
 
 ### Solve
 **Flag:** `pwn.college{sv-k0mrxb0xYxw99UQJ52Blco86.QXzMDO0wCN2gjNzEzW}`
+
+At first I got stuck at what I was supposed to enter as the argument. After a few errors, I understood that I was supposed to use ~ as a home directory at first and then as a file name.
 ```
 hacker@paths~home-sweet-home:~$ /challenge/run ~/~
 Writing the file to /home/hacker/~!

@@ -90,7 +90,7 @@ In this challenge, I've put a hundred thousand lines of text into the /challenge
 HINT: The flag always starts with the text pwn.college.
 
 ### Solve
-**FLag:** `pwn.college{0oGixMtdmO7ZuaMO24jgocsollS.QX3EDO0wCN2gjNzEzW}`
+**Flag:** `pwn.college{0oGixMtdmO7ZuaMO24jgocsollS.QX3EDO0wCN2gjNzEzW}`
 
 I used the grep command to search for 'pwn.college' as the flag always contains that keyword.
 ```
@@ -103,4 +103,56 @@ I learnt about the grep command and that it's used to search for strings in huge
 
 ### References
 
-## 
+## Comparing files
+
+When looking for changes between similar files, eyeballing them might not be the most efficient approach! This is where the diff command becomes invaluable.
+
+diff compares two files line by line and shows you exactly what's different between them. For example:
+
+hacker@dojo\:~$ cat file1
+hello
+world
+hacker@dojo:\~$ cat file2
+hello
+universe
+hacker@dojo:\~$ diff file1 file2
+2c2
+< world
+\---
+\> universe
+The output tells us that line 2 changed (2c2), with world in the first file (<) being replaced by universe in the second file (>).
+
+Sometimes, when new lines are added, you'll see something like:
+
+hacker@dojo:\~$ cat old
+pwn
+hacker@dojo:\~$ cat new
+pwn
+college
+hacker@dojo:\~$ diff old new
+1a2
+\> college
+This tells us that after line 1 in the first file, the second file has an additional line (1a2 means "after line 1 of file1, add line 2 of file2").
+
+Now for your challenge! There are two files in /challenge:
+
+/challenge/decoys_only.txt contains 100 fake flags
+/challenge/decoys_and_real.txt contains all 100 fake flags plus the one real flag
+Use diff to find what's different between these files and get your flag!
+
+### Solve
+**Flag:** `pwn.college{MTWoEWSJxIh9asChH3ej5MXiPPS.01MwMDOxwCN2gjNzEzW}`
+
+I used the diff command with the absolute paths of the two files I had to differentiate between to find the flag.
+```
+hacker@commands~comparing-files:~$ diff /challenge/decoys_only.txt /challenge/decoys_and_real.txt
+98a99
+> pwn.college{MTWoEWSJxIh9asChH3ej5MXiPPS.01MwMDOxwCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt about the diff commmand. It is used to differentiate between files. The format for the changed lines (1a2 for example)is new to me as well.
+
+### References
+
+## Listing files

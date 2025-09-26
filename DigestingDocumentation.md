@@ -156,3 +156,41 @@ I learnt how to navigate and search through a manual.
 
 ### References
 
+## Searching for manuals
+This level is tricky: it hides the manpage for the challenge by randomizing its name. Luckily, all of the manpages are gathered in a searchable database, so you'll be able to search the man page database to find the hidden challenge man page! To figure out how to search for the right manpage, read the man page manpage by doing: man man!
+
+### Solve
+**Flag:** `pwn.college{g4YpKQpXeOQ0oBIBLXDLNHIPADY.QX2EDO0wCN2gjNzEzW}`
+
+I was stuck at what to do after opening the man manual page. I tried searching for flag, challenge and hidden keywords but that lead me nowhere. Then I searched for the search keyword to see if we could search for a manpage without its name. I found the -k argument and I entered flag keyword for it to search in the manpages. I found the relevant manpage and called it and got the flag.
+```
+hacker@man~searching-for-manuals:~$ man man
+hacker@man~searching-for-manuals:~$ man -k flag
+dpkg-buildflags (1)  - returns build flags to use during package build
+Dpkg::BuildFlags (3perl) - query build flags
+fegetexceptflag (3)  - floating-point rounding and exception handling
+fesetexceptflag (3)  - floating-point rounding and exception handling
+gppeowgjzz (1)       - print the flag!
+i386 (8)             - change reported architecture in new program environment a...
+ioctl_iflags (2)     - ioctl() operations for inode flags
+linux32 (1)          - change reported architecture in new program environment a...
+linux64 (1)          - change reported architecture in new program environment a...
+pcap-config (1)      - write libpcap compiler and linker flags to standard output
+security_compute_av_flags (3) - query the SELinux policy database in the kernel
+security_compute_av_flags_raw (3) - query the SELinux policy database in the kernel
+set_matchpathcon_flags (3) - set flags controlling the operation of matchpathcon...
+set_matchpathcon_invalidcon (3) - set flags controlling the operation of matchpa...
+set_matchpathcon_printf (3) - set flags controlling the operation of matchpathco...
+setarch (1)          - change reported architecture in new program environment a...
+setarch (8)          - change reported architecture in new program environment a...
+x86_64 (8)           - change reported architecture in new program environment a...
+hacker@man~searching-for-manuals:~$ man gppeowgjzz
+hacker@man~searching-for-manuals:~$ /challenge/challenge --gppeow 402
+Correct usage! Your flag: pwn.college{g4YpKQpXeOQ0oBIBLXDLNHIPADY.QX2EDO0wCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt about the man manpage and how you can access and learn about basically any command through it. I got to know more about how to search for other manpages too.
+
+### References
+

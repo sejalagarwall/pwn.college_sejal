@@ -69,10 +69,8 @@ SYNOPSIS
 
 DESCRIPTION
        Repeatedly output a line with all specified STRING(s), or 'y'.
-
-       --help display this help and exit
-
-       --version
+	   --help display this help and exit
+	   --version
               output version information and exit
 
 AUTHOR
@@ -105,7 +103,6 @@ SYNOPSIS
 	This gives a short usage synopsis. These synopses have a standard
 	format. Typically, each line is a different valid invocation of the
 	command, and the lines can be read as:
-
 	COMMAND [OPTIONAL_ARGUMENT] SINGLE_MANDATORY_ARGUMENT
 	COMMAND [OPTIONAL_ARGUMENT] MULTIPLE_ARGUMENTS...
 
@@ -135,6 +132,27 @@ Correct usage! Your flag: pwn.college{0Vwaw0ZFMtXQnMYEa5m5bqgC7dR.QX0EDO0wCN2gjN
 
 ### New Learnings
 I learnt about the man command and that there is a manual for every command in the database. 
+
+### References
+
+## Searching manuals
+You can scroll man pages with the arrow keys (and PgUp/PgDn) and search with /. After searching, you can hit n to go to the next result and N to go to the previous result. Instead of /, you can use ? to search backwards!
+
+Find the option that will give you the flag by reading the challenge man page.
+
+### Solve
+**Flag:** `pwn.college{syuZTkfVgIeyf0F00ZkTxvcMtuy.QX1EDO0wCN2gjNzEzW}`
+
+I used / to search the manual for 'flag' and used the 'n' key to navigate through the results until I found the right one.
+```
+hacker@man~searching-manuals:~$ man challenge
+hacker@man~searching-manuals:~$ /challenge/challenge --uzi
+Initializing...
+Correct usage! Your flag: pwn.college{syuZTkfVgIeyf0F00ZkTxvcMtuy.QX1EDO0wCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt how to navigate and search through a manual.
 
 ### References
 

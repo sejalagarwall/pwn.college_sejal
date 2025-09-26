@@ -194,3 +194,36 @@ I learnt about the man manpage and how you can access and learn about basically 
 
 ### References
 
+## Helpful programs
+Some programs don't have a man page, but might tell you how to run them if invoked with a special argument. Usually, this argument is --help, but it can often be -h or, in rare cases, -?, help, or other esoteric values like /? (though that latter is more frequently encountered on Windows).
+
+In this level, you will practice reading a program's documentation with --help. Try it out!
+
+### Solve
+**Flag:** `pwn.college{UXhfbkZ1_RS4oNjJL6YmZfNSMFy.QX3IDO0wCN2gjNzEzW}`
+
+I used the /challange/challenge program with --help argument which got me the description on how to use it and obtain the flag. I used the -p argument to get the secret value and then the -g argument to get the flag.
+```
+hacker@man~helpful-programs:~$ /challenge/challenge --help
+usage: a challenge to make you ask for help [-h] [--fortune] [-v]
+                                            [-g GIVE_THE_FLAG] [-p]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --fortune             read your fortune
+  -v, --version         get the version number
+  -g GIVE_THE_FLAG, --give-the-flag GIVE_THE_FLAG
+                        get the flag, if given the correct value
+  -p, --print-value     print the value that will cause the -g option to give you
+                        the flag
+hacker@man~helpful-programs:~$ /challenge/challenge -p
+The secret value is: 146
+hacker@man~helpful-programs:~$ /challenge/challenge -g 146
+Correct usage! Your flag: pwn.college{UXhfbkZ1_RS4oNjJL6YmZfNSMFy.QX3IDO0wCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt that some commands have special arguments that return a description on how to use it. It may be --help, -h etc.
+
+### References
+

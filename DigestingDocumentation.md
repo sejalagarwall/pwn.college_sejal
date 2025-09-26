@@ -227,3 +227,44 @@ I learnt that some commands have special arguments that return a description on 
 
 ### References
 
+## Help for builtins
+Some commands, rather than being programs with man pages and help options, are built into the shell itself. These are called builtins. Builtins are invoked just like commands, but the shell handles them internally instead of launching other programs. You can get a list of shell builtins by running the builtin help, as so:
+
+hacker@dojo:\~$ help
+You can get help on a specific one by passing it to the help builtin. Let's look at a builtin that we've already used earlier, cd!
+
+hacker@dojo:\~$ help cd
+cd: cd [-L|[-P [-e]] [-@]] [dir]
+    Change the shell working directory.
+    Change the current directory to DIR.  The default DIR is the value of the
+    HOME shell variable.
+...
+Some good information! In this challenge, we'll practice using help to look up help for builtins. This challenge's challenge command is a shell builtin, rather than a program. Like before, you need to lookup its help to figure out the secret value to pass to it!
+
+### Solve
+**Flag:** `pwn.college{QDu8OqimAgSYLdUwDE7brbwDHx5.QX0ETO0wCN2gjNzEzW}`
+
+I ran help challenge and got the directions to get the flag. At first I tried running /challenge, but when that didn't work I realized challenge is a builtin command and doesn't need / before it.
+```
+hacker@man~help-for-builtins:~$ help challenge
+challenge: challenge [--fortune] [--version] [--secret SECRET]
+    This builtin command will read you the flag, given the right arguments!
+    
+    Options:
+      --fortune         display a fortune
+      --version         display the version
+      --secret VALUE    prints the flag, if VALUE is correct
+
+    You must be sure to provide the right value to --secret. That value
+    is "QDu8Oqim".
+hacker@man~help-for-builtins:~$ /challenge --secret QDu8Oqim
+bash: /challenge: Is a directory
+hacker@man~help-for-builtins:~$ challenge --secret QDu8Oqim
+Correct! Here is your flag!
+pwn.college{QDu8OqimAgSYLdUwDE7brbwDHx5.QX0ETO0wCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt about builtin commands that are ran by the shell internally.
+
+### References

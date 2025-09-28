@@ -258,3 +258,45 @@ What happens varies based on the specific shell and its options. By default bash
 
 This challenge has a /challenge/files directory with a bunch of files starting with pwncollege. Tab-complete from /challenge/files/p or so, and make your way to the flag!
 
+### Solve
+**Flag:** `pwn.college{keQncSEn1DXc5zgVM9tL3mWUcci.0lN0EzNxwCN2gjNzEzW}`
+
+I used tab complete to sift through the file options and kept tab completing till I reach flag.
+```
+hacker@globbing~multiple-options-for-tab-completion:~$ cat /challenge/files/pwn
+pwn                    pwncollege-family      pwncollege-flyswatter
+pwn-college            pwncollege-flag        pwncollege-hacking
+pwn-the-planet         pwncollege-flamingo    
+hacker@globbing~multiple-options-for-tab-completion:~$ cat /challenge/files/pwncollege-
+pwncollege-family      pwncollege-flamingo    pwncollege-hacking
+pwncollege-flag        pwncollege-flyswatter  
+hacker@globbing~multiple-options-for-tab-completion:~$ cat /challenge/files/pwncollege-fl
+pwncollege-flag        pwncollege-flamingo    pwncollege-flyswatter
+hacker@globbing~multiple-options-for-tab-completion:~$ cat /challenge/files/pwncollege-flag
+pwn.college{keQncSEn1DXc5zgVM9tL3mWUcci.0lN0EzNxwCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt that the bash gives you options whenever there are multiple options for autocompletion. 
+
+### References
+
+## Tab completion on commands
+Tab completion is for more than files! You can also tab-complete commands. This level has a command that starts with pwncollege, and it'll give you the flag. Type pwncollege and hit the tab key to auto-complete it!
+
+NOTE: You can auto-complete any command, but be careful: callous auto-completes without double-checking the result can wreak havoc in your shell if you accidentally run the wrong commands!
+
+### Solve
+**Flag:** `pwn.college{MlyeeGZNa807mjOftIx51BePY12.0VN0EzNxwCN2gjNzEzW}`
+
+I used tab completion to auto complete pwncollege command.
+```
+hacker@globbing~tab-completion-on-commands:~$ pwncollege-925 
+Correct! Here is your flag:
+pwn.college{MlyeeGZNa807mjOftIx51BePY12.0VN0EzNxwCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt that tab completion can also be used on commands.
+
+### References

@@ -76,3 +76,70 @@ To practice, run /challenge/run with an append-mode redirect of the output to th
 
 Go for it now!
 
+### Solve
+**Flag:** `pwn.college{o5kkKljxAOfiCpS_876JquoDlyh.QX3ATO0wCN2gjNzEzW}`
+
+I used >> to append the second half of the flag to the-flag. I read the file using cat command.
+```
+hacker@piping~appending-output:~$ /challenge/run >> ~/the-flag
+[INFO] WELCOME! This challenge makes the following asks of you:
+[INFO] - the challenge will check that output is redirected to a specific file path : /home/hacker/the-flag
+
+[HYPE] ONWARDS TO GREATNESS!
+
+[INFO] This challenge will perform a bunch of checks.
+[INFO] Good luck!
+
+[TEST] You should have redirected my stdout to a file called /home/hacker/the-flag. Checking...
+
+[HINT] File descriptors are inherited from the parent, unless the FD_CLOEXEC is set by the parent on the file descriptor.
+[HINT] For security reasons, some programs, such as python, do this by default in certain cases. Be careful if you are
+[HINT] creating and trying to pass in FDs in python.
+
+[PASS] The file at the other end of my stdout looks okay!
+[PASS] Success! You have satisfied all execution requirements.
+I will write the flag in two parts to the file /home/hacker/the-flag! I'll do 
+the first write directly to the file, and the second write, I'll do to stdout 
+(if it's pointing at the file). If you redirect the output in append mode, the 
+second write will append to (rather than overwrite) the first write, and you'll 
+get the whole flag!
+hacker@piping~appending-output:~$ cat ~/the-flag
+ | 
+\|/ This is the first half:
+ v 
+pwn.college{o5kkKljxAOfiCpS_876JquoDlyh.QX3ATO0wCN2gjNzEzW}
+                              ^
+     that is the second half /|\
+                              |
+
+If you only see the second half above, you redirected in *truncate* mode (>) 
+rather than *append* mode (>>), and so the write of the second half to stdout 
+overwrote the initial write of the first half directly to the file. Try append 
+mode!
+```
+
+### New Learnings
+You can append outputs to a single file using >>. > clears the previous data and enters the output without appending.
+
+### References
+
+## Redirecting errors
+Just like standard output, you can also redirect the error channel of commands. Here, we'll learn about File Descriptor numbers. A File Descriptor (FD) is a number that describes a communication channel in Linux. You've already been using them, even though you didn't realize it. We're already familiar with three:
+
+FD 0: Standard Input
+FD 1: Standard Output
+FD 2: Standard Error
+When you redirect process communication, you do it by FD number, though some FD numbers are implicit. For example, a > without a number implies 1>, which redirects FD 1 (Standard Output). Thus, the following two commands are equivalent:
+
+hacker@dojo:\~$ echo hi > asdf
+hacker@dojo:\~$ echo hi 1> asdf
+Redirecting errors is pretty easy from this point. If you have a command that might produce data via standard error (such as /challenge/run), you can do:
+
+hacker@dojo:\~$ /challenge/run 2> errors.log
+That will redirect standard error (FD 2) to the errors.log file. Furthermore, you can redirect multiple file descriptors at the same time! For example:
+
+hacker@dojo:\~$ some_command > output.log 2> errors.log
+That command will redirect output to output.log and errors to errors.log.
+
+Let's put this into practice! In this challenge, you will need to redirect the output of /challenge/run, like before, to myflag, and the "errors" (in our case, the instructions) to instructions. You'll notice that nothing will be printed to the terminal, because you have redirected everything! You can find the instructions/feedback in instructions and the flag in myflag when you successfully pull this off!
+

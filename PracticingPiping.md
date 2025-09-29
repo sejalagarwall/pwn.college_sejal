@@ -143,3 +143,20 @@ That command will redirect output to output.log and errors to errors.log.
 
 Let's put this into practice! In this challenge, you will need to redirect the output of /challenge/run, like before, to myflag, and the "errors" (in our case, the instructions) to instructions. You'll notice that nothing will be printed to the terminal, because you have redirected everything! You can find the instructions/feedback in instructions and the flag in myflag when you successfully pull this off!
 
+### Solve
+**Flag:** `pwn.college{YDRAdvJNCtb6jy_a_pLPGrPrgV6.QX3YTN0wCN2gjNzEzW}`
+
+I used > and 2> to redirect output and error messages respectively. Then I read out the myflag file for the flag.
+```
+hacker@piping~redirecting-errors:~$ /challenge/run > myflag 2> instructions
+hacker@piping~redirecting-errors:~$ cat myflag
+
+[FLAG] Here is your flag:
+[FLAG] pwn.college{YDRAdvJNCtb6jy_a_pLPGrPrgV6.QX3YTN0wCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt about File Descriptor numbers and their uses. I also got to know that you can redirect to multiple files at the same time.
+
+### References
+

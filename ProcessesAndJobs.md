@@ -3,7 +3,7 @@
 ## Listing processes
 First, we will learn to list running processes using the ps command. Depending on whom you ask, ps either stands for "process snapshot" or "process status", and it lists processes. By default, ps just lists the processes running in your terminal, which honestly isn't very useful:
 ```
-hacker@dojo:\~$ ps
+hacker@dojo:~$ ps
     PID TTY          TIME CMD
     329 pts/0    00:00:00 bash
     349 pts/0    00:00:00 ps
@@ -23,7 +23,7 @@ These two methods, ps -ef and ps aux, result in slightly different, but cross-re
 
 Let's try it in the dojo:
 ```
-hacker@dojo:\~$ ps -ef
+hacker@dojo:~$ ps -ef
 UID          PID    PPID  C STIME TTY          TIME CMD
 hacker         1       0  0 05:34 ?        00:00:00 /sbin/docker-init -- /bin/sleep 6h
 hacker         7       1  0 05:34 ?        00:00:00 /bin/sleep 6h
@@ -34,11 +34,11 @@ hacker       318     138  6 05:34 ?        00:00:03 /usr/lib/code-server/lib/nod
 hacker       554     138  3 05:35 ?        00:00:00 /usr/lib/code-server/lib/node /usr/lib/code-server/lib/vscode/ou
 hacker       571     554  0 05:35 pts/0    00:00:00 /usr/bin/bash --init-file /usr/lib/code-server/lib/vscode/out/vs
 hacker       695     571  0 05:35 pts/0    00:00:00 ps -ef
-hacker@dojo:\~$
+hacker@dojo:~$
 ```
 You can see here that there are processes running for the initialization of the challenge environment (docker-init), a timeout before the challenge is automatically terminated to preserve computing resources (sleep 6h to timeout after 6 hours), the VSCode environment (several code-server helper processes), the shell (bash), and my ps -ef command. It's basically the same thing with ps aux:
 ```
-hacker@dojo:\~$ ps aux
+hacker@dojo:~$ ps aux
 USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 hacker         1  0.0  0.0   1128     4 ?        Ss   05:34   0:00 /sbin/docker-init -- /bin/sleep 6h
 hacker         7  0.0  0.0   2736   580 ?        S    05:34   0:00 /bin/sleep 6h
@@ -49,7 +49,7 @@ hacker       318  3.3  0.0 977472 98256 ?        Sl   05:34   0:06 /usr/lib/code
 hacker       554  0.4  0.0 650560 55360 ?        Rl   05:35   0:00 /usr/lib/code-server/lib/node /usr/lib/code-serve
 hacker       571  0.0  0.0   4600  4032 pts/0    Ss   05:35   0:00 /usr/bin/bash --init-file /usr/lib/code-server/li
 hacker      1172  0.0  0.0   5892  2924 pts/0    R+   05:38   0:00 ps aux
-hacker@dojo:\~$
+hacker@dojo:~$
 ```
 There are many commonalities between ps -ef and ps aux: both display the user (USER column), the PID, the TTY, the start time of the process (STIME/START), the total utilized CPU time (TIME), and the command (CMD/COMMAND). ps -ef additionally outputs the Parent Process ID (PPID), which is the PID of the process that launched the one in question, while ps aux outputs the percentage of total system CPU and Memory that the process is utilizing. Plus, there's a bunch of other stuff we won't get into right now.
 
@@ -81,3 +81,21 @@ Now I will sleep for a while (so that you could find me with 'ps').
 I learnt how to list processes using ps -ef and aux.
 
 ### References
+
+## Killing processes
+You've launched processes, you've viewed processes, now you will learn to terminate processes! In Linux, this is done using the aggressively-named kill command. With default options (which is all we'll cover in this level), kill will terminate a process in a way that gives it a chance to get its affairs in order before ceasing to exist.
+
+Let's say you had a pesky sleep process (sleep is a program that simply hangs out for the number of seconds specified on the commandline, in this case, 1337 seconds) that you launched in another terminal, like so:
+```
+hacker@dojo:~$ sleep 1337
+```
+How do we get rid of it? You use kill to terminate it by passing the process identifier (the PID from ps) as an argument, like so:
+```
+hacker@dojo:~$ ps -e | grep sleep
+ 342 pts/0    00:00:00 sleep
+hacker@dojo:~$ kill 342
+hacker@dojo:~$ ps -e | grep sleep
+hacker@dojo:~$
+```
+Now, it's time to terminate your first process! In this challenge, /challenge/run will refuse to run while /challenge/dont_run is running! You must find the dont_run process and kill it. If you fail, pwn.college will disavow all knowledge of your mission. Good luck.
+

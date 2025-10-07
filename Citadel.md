@@ -48,3 +48,12 @@ Decrypt it by using the album name as your key and continue your ascent.
 
 I looked up panchiko's latest album 'gingko' and saw that track 8 was named 'vinegar'. I deciphered the text using vinegar cipher text and 'gingko' as the key.
 I got the flag then by using 'panchiko' as the key.
+
+## Omniscient Flag's Metadata
+As you step into the second chamber, a figure manifests before you. Before you stands a forgotten deity, a dead god spoken of only in whispers. Known by countless names: “Apostle of Epilogue and Eternity,” “Lone Messiah” and many more lost to time.
+
+They leave nothing but a single image, a relic carrying his final secret. Hidden within its layers lies the key to ascend to the next chamber.
+
+### Solve
+**Flag:** `citadel{th1s_ch4ll3ng3_1s_f0r_th4t_0n3_ex1ft00l_4nd_b1nw4lk_enthus14st}`
+

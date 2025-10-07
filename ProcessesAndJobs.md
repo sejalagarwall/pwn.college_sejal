@@ -321,3 +321,111 @@ I learnt how to resume processes in the background. Doing this gives you your sh
 ## Foregrounding processes
 Imagine that you have a backgrounded process, and you want to mess with it some more. What do you do? Well, you can foreground a backgrounded process with fg just like you foreground a suspended process! This level will walk you through that!
 
+### Solve
+**Flag:** `pwn.college{UQMKbCxYJL2iWcIroUwuwKn_c96.QX4QDO0wCN2gjNzEzW}`
+
+I suspended the process, resumed it in the background and then brought it forward.
+```
+hacker@processes~foregrounding-processes:~$ /challenge/run
+To pass this level, you need to suspend me, resume the suspended process in the 
+background, and *then* foreground it without re-suspending it! You can 
+background me with Ctrl-Z (and resume me in the background with 'bg') or, if 
+you're not ready to do that for whatever reason, just hit Enter and I'll exit!
+^Z
+[1]+  Stopped                 /challenge/run
+hacker@processes~foregrounding-processes:~$ bg
+[1]+ /challenge/run &
+hacker@processes~foregrounding-processes:~$ 
+
+
+Yay, I'm now running the background! Because of that, this text will probably 
+overlap weirdly with the shell prompt. Don't panic; just hit Enter a few times 
+to scroll this text out. After that, resume me into the foreground with 'fg'; 
+I'll wait.
+
+hacker@processes~foregrounding-processes:~$ fg
+/challenge/run
+YES! Great job! I'm now running in the foreground. Hit Enter for your flag!
+
+pwn.college{UQMKbCxYJL2iWcIroUwuwKn_c96.QX4QDO0wCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt how to use bg and fg commands better.
+
+### References
+
+## Starting background processes
+Of course, you don't have to suspend processes to background them: you can start them backgrounded right off the bat! It's easy; all you have to do is append a & to the command, like so:
+```
+hacker@dojo:~$ sleep 1337 &
+[1] 1771
+hacker@dojo:~$ ps -o user,pid,stat,cmd
+USER         PID STAT CMD
+hacker      1709 Ss   bash
+hacker      1771 S    sleep 1337
+hacker      1782 R+   ps -o user,pid,stat,cmd
+hacker@dojo:~$
+```
+Here, sleep is actively running in the background, not suspended. Now it's your turn to practice! Launch /challenge/run backgrounded for the flag!
+
+### Solve
+**Flag:** `pwn.college{sJjW2oH5RQZ6VeSDAwdG-ADOJgI.QX5QDO0wCN2gjNzEzW}`
+
+I ran /challenge/run directly in the background and got the flag.
+```
+hacker@processes~starting-backgrounded-processes:~$ /challenge/run &
+[1] 139
+hacker@processes~starting-backgrounded-processes:~$ 
+
+
+Yay, you started me in the background! Because of that, this text will probably 
+overlap weirdly with the shell prompt, but you're used to that by now...
+
+Anyways! Here is your flag!
+pwn.college{sJjW2oH5RQZ6VeSDAwdG-ADOJgI.QX5QDO0wCN2gjNzEzW}
+
+[1]+  Done                    /challenge/run
+```
+
+### New Learnings
+I learnt how to directly run programs in the background by appending & to the command.
+
+### References
+
+## Process exit codes
+Every shell command, including every program and every builtin, exits with an exit code when it finishes running and terminates. This can be used by the shell, or the user of the shell (that's you!) to check if the process succeeded in its functionality (this determination, of course, depends on what the process is supposed to do in the first place).
+
+You can access the exit code of the most recently-terminated command using the special ? variable (don't forget to prepend it with $ to read its value!):
+```
+hacker@dojo:~$ touch test-file
+hacker@dojo:~$ echo $?
+0
+hacker@dojo:~$ touch /test-file
+touch: cannot touch '/test-file': Permission denied
+hacker@dojo:~$ echo $?
+1
+hacker@dojo:~$
+```
+As you can see, commands that succeed typically return 0 and commands that fail typically return a non-zero value, most commonly 1 but sometimes an error code that identifies a specific failure mode.
+
+In this challenge, you must retrieve the exit code returned by /challenge/get-code and then run /challenge/submit-code with that error code as an argument. Good luck!
+
+### Solve
+**Flag:** `pwn.college{gumilBx3RiYeTe-cuAWrEbV7TBi.QX5YDO1wCN2gjNzEzW}`
+
+I used $? to return the exit code of /challenge/get-code. I used the code as an argument to get the flag.
+```
+hacker@processes~process-exit-codes:~$ /challenge/get-code
+Exiting with an error code!
+hacker@processes~process-exit-codes:~$ echo $?
+205
+hacker@processes~process-exit-codes:~$ /challenge/submit-code 205
+CORRECT! Here is your flag:
+pwn.college{gumilBx3RiYeTe-cuAWrEbV7TBi.QX5YDO1wCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt about exit codes and how to retrieve them.
+
+### References

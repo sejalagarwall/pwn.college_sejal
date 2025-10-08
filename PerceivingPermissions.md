@@ -786,3 +786,20 @@ But be careful! Giving the SUID bit to an executable owned by root can give atta
 
 Now, we are going to let you add the SUID bit to the /challenge/getroot program in order to spawn a root shell for you to cat the flag yourself!
 
+### Solve
+**Flag:** `pwn.college{8GFtAYUtClGV_UKVDuzCvnQ6Tqh.QXzEjN0wCN2gjNzEzW}`
+
+I was stuck for a while becuase I tried adding the s permission to the world. I added the permission to the user and spawned the root shell to get the flag.
+```
+hacker@permissions~the-suid-bit:~$ chmod u+s /challenge/getroot
+hacker@permissions~the-suid-bit:~$ /challenge/getroot
+SUCCESS! You have set the suid bit on this program, and it is running as root! 
+Here is your shell...
+root@permissions~the-suid-bit:~# cat /flag
+pwn.college{8GFtAYUtClGV_UKVDuzCvnQ6Tqh.QXzEjN0wCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt about SUID and how it can make files execute as the owner.
+
+### References

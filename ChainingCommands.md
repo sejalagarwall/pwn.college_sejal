@@ -243,3 +243,292 @@ Note, the shebang line must be the VERY FIRST line of the file - no blank lines 
 
 For this challenge, create a script at /home/hacker/solve.sh that has a proper shebang and outputs "hack the planet". Remember to make it executable, then run /challenge/run to verify your script works correctly!
 
+### Solve
+**Flag:** `pwn.college{4zIe8MaWeX-MIIZQVkIZEHsENG-.0VOzMDOxwCN2gjNzEzW}`
+
+I got stuck because the bash wasn't writing #!/bin/bash when I tried to echo it to solve.sh. I put single quotes around it and then it worked.
+```
+hacker@chaining~understanding-shebangs:~$ touch solve.sh
+hacker@chaining~understanding-shebangs:~$ echo '#!/bin/bash' > solve.sh
+hacker@chaining~understanding-shebangs:~$ echo echo hack the planet >> solve.sh
+hacker@chaining~understanding-shebangs:~$ chmod a+x solve.sh
+hacker@chaining~understanding-shebangs:~$ /challenge/run
+Testing your script...
+Perfect! Your flag:
+Flag: pwn.college{4zIe8MaWeX-MIIZQVkIZEHsENG-.0VOzMDOxwCN2gjNzEzW}
+```
+
+### New Learnings
+i learnt about shebangs and what it's used for.
+
+### References
+Google Gemini
+
+## Scripting with arguments
+You've learned how to make shell scripts, but so far they've just been lists of commands. Scripts become much more powerful when they can accept arguments! This might look like:
+```
+hacker@dojo:~$ bash myscript.sh hello world
+```
+The script can access these arguments using special variables:
+
+$1 contains the first argument ("hello")
+$2 contains the second argument ("world")
+$3 would contain the third argument (if there had been one)
+...and so on
+Here's a simple example:
+```
+hacker@dojo:~$ cat myscript.sh
+#!/bin/bash
+echo "First argument: $1"
+echo "Second argument: $2"
+hacker@dojo:~$ bash myscript.sh hello world
+First argument: hello
+Second argument: world
+hacker@dojo:~$
+```
+For this challenge, you need to write a script at /home/hacker/solve.sh that:
+
+Takes two arguments
+Outputs them in REVERSE order (second argument first, then the first argument)
+For example:
+```
+hacker@dojo:~$ bash /home/hacker/solve.sh pwn college
+college pwn
+hacker@dojo:~$
+```
+Once your script works correctly, run /challenge/run to get your flag!
+
+### Solve
+**Flag:** `pwn.college{MShEoVDa_ZFzKoFFHeGW9x6DBS1.0VNzMDOxwCN2gjNzEzW}`
+
+I entered $2 $1 so that the second argument prints first. The rest of the procedure remained the same.
+```
+hacker@chaining~scripting-with-arguments:~$ touch solve.sh
+hacker@chaining~scripting-with-arguments:~$ echo '#!/bin/bash' > solve.sh
+hacker@chaining~scripting-with-arguments:~$ echo 'echo $2 $1' >> solve.sh
+hacker@chaining~scripting-with-arguments:~$ bash solve.sh pwn college
+college pwn
+hacker@chaining~scripting-with-arguments:~$ /challenge/run
+Correct! Your script properly reversed the arguments.
+Here's your flag:
+pwn.college{MShEoVDa_ZFzKoFFHeGW9x6DBS1.0VNzMDOxwCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt how to provide arguments to scripts and print them using placeholders.
+
+### References
+
+## Scripting with conditionals
+Now that you can use arguments in scripts, let's make them smarter with conditional logic!
+
+In bash, you can use if statements to make decisions:
+```
+if [ "$1" == "ping" ]
+then
+    echo "pong"
+fi
+```
+The above, in English, is if the first argument is "ping", print out "pong". The syntax is somewhat unforgiving for a few reasons. First, you must have spaces after if (if you're used to a language like C, this is different), after [, and before ]. Second, if, then, and fi must all be on different lines (or separated by semicolons); you can't lump them into the same statement. It's also a bit weird: instead of endif or end or something like that, the terminator of the if statement is fi (if backwards). Just something you have to remember.
+
+For this challenge, write a script at /home/hacker/solve.sh that:
+
+Takes one argument
+If the argument is "pwn", output "college"
+For any other input, output nothing
+Example:
+```
+hacker@dojo:~$ bash /home/hacker/solve.sh pwn
+college
+hacker@dojo:~$ bash /home/hacker/solve.sh foo
+hacker@dojo:~$
+```
+Once your script works correctly, run /challenge/run to get your flag!
+
+### Solve
+**Flag:** `pwn.college{MQWJCwxNrI5tcvn8S_ITt_G0JZL.0lNzMDOxwCN2gjNzEzW}`
+
+I wrote the conditional statement in the script and gave it argument pwn to test it. I ran /challenge/run to get the flag.
+```
+hacker@chaining~scripting-with-conditionals:~$ touch solve.sh
+hacker@chaining~scripting-with-conditionals:~$ echo 'if [ "$1" == "pwn" ]' > solve.sh
+hacker@chaining~scripting-with-conditionals:~$ echo 'then' >> solve.sh
+hacker@chaining~scripting-with-conditionals:~$ echo 'echo college' >> solve.sh
+hacker@chaining~scripting-with-conditionals:~$ echo 'fi' >> solve.sh
+hacker@chaining~scripting-with-conditionals:~$ bash solve.sh pwn
+college
+hacker@chaining~scripting-with-conditionals:~$ /challenge/run
+Correct! Your script properly handles all the conditions.
+Here's your flag:
+pwn.college{MQWJCwxNrI5tcvn8S_ITt_G0JZL.0lNzMDOxwCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt about conditional statements in Linux, its syntax and how to execute them.
+
+### References
+
+## Scripting with default cases
+Your if statements so far have handled specific cases, but what about everything else? That's where else comes in!
+
+The else clause executes when the if condition is false:
+```
+if [ "$1" == "hello" ]
+then
+    echo "Hi there!"
+else
+    echo "I don't understand"
+fi
+```
+Note that the else doesn't have a condition --- it catches everything that didn't match previously. It also doesn't have a then statement. Finally, the fi goes after the else block to denote the end of the whole complex statement! It is also optional: you didn't have it in the previous level, and you only need it if the logic you're trying to achieve demands it.
+
+Here's a practical example:
+```
+if [ "$1" == "start" ]
+then
+    echo "Starting the service..."
+else
+    echo "Unknown command. Use 'start' to begin."
+fi
+```
+For this challenge, write a script at /home/hacker/solve.sh that:
+
+Takes one argument
+If the argument is "pwn", output "college"
+For any other input, output "nope"
+Example:
+```
+hacker@dojo:~$ bash /home/hacker/solve.sh pwn
+college
+hacker@dojo:~$ bash /home/hacker/solve.sh hack
+nope
+hacker@dojo:~$ bash /home/hacker/solve.sh anything
+nope
+hacker@dojo:~$
+```
+Once your script works correctly, run /challenge/run to get your flag!
+
+### Solve
+**Flag:** `pwn.college{oqIjdXMfgztmZNg4cJimH92c__Y.01NzMDOxwCN2gjNzEzW}`
+
+I added the else statement to the conditional code and tested the code with the argument 'hello'.
+```
+hacker@chaining~scripting-with-default-cases:~$ touch solve.sh
+hacker@chaining~scripting-with-default-cases:~$ echo 'if [ "$1" == "pwn" ]' > solve.sh
+hacker@chaining~scripting-with-default-cases:~$ echo 'then' >> solve.sh
+hacker@chaining~scripting-with-default-cases:~$ echo 'echo college' >> solve.sh
+hacker@chaining~scripting-with-default-cases:~$ echo 'else' >> solve.sh
+hacker@chaining~scripting-with-default-cases:~$ echo 'echo nope' >> solve.sh
+hacker@chaining~scripting-with-default-cases:~$ echo 'fi' >> solve.sh
+hacker@chaining~scripting-with-default-cases:~$ bash solve.sh hello
+nope
+hacker@chaining~scripting-with-default-cases:~$ /challenge/run
+Correct! Your script properly handles the if/else conditions.
+Here's your flag:
+pwn.college{oqIjdXMfgztmZNg4cJimH92c__Y.01NzMDOxwCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt about the else command.
+
+### References
+
+## Scripting with multiple conditions
+You've learned how to use a single if statement to check a condition. But what if you need to check multiple conditions? You can use elif (short for else if):
+```
+if [ "$1" == "one" ]
+then
+    echo "1"
+elif [ "$1" == "two" ]
+then
+    echo "2"
+elif [ "$1" == "three" ]
+then
+    echo "3"
+else
+    echo "unknown"
+fi
+```
+Note that you do need a then after the elif, just like the if. As before the else at the end catches everything that didn't match.
+
+For this challenge, write a script at /home/hacker/solve.sh that:
+
+Takes one argument
+If the argument is "hack", output "the planet"
+If the argument is "pwn", output "college"
+If the argument is "learn", output "linux"
+For any other input, output "unknown"
+Example:
+```
+hacker@dojo:~$ bash /home/hacker/solve.sh hack
+the planet
+hacker@dojo:~$ bash /home/hacker/solve.sh pwn
+college
+hacker@dojo:~$ bash /home/hacker/solve.sh learn
+linux
+hacker@dojo:~$ bash /home/hacker/solve.sh foo
+unknown
+hacker@dojo:~$
+```
+Once your script works correctly, run /challenge/run to get your flag!
+
+### Solve
+**Flag:** `pwn.college{EqDhVarD1ujU0OKFIm-_IPwSkVw.0FOzMDOxwCN2gjNzEzW}`
+
+I wrote the elif commands in the script and ran /challenge/run for the flag.
+```
+hacker@chaining~scripting-with-multiple-conditions:~$ touch solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'if [ "$1" == "hack" ]' > solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'then' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'echo "the planet"' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'elif [ "$1" == "pwn" ]' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'then' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'echo college' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'elif [ "$1" == "learn" ]' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'then' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'echo linux' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'else' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'echo unknown' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'fi' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ /challenge/run
+Correct! Your script properly handles all the conditions with elif.
+Here's your flag:
+pwn.college{EqDhVarD1ujU0OKFIm-_IPwSkVw.0FOzMDOxwCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt about the elif command.
+
+### References
+
+## Reading shell scripts
+You're not the only one who writes shell scripts! They are very handy for doing simple "system-level" tasks, and are a common tool that developers and sysadmins reach for. In fact, a surprising fraction of the programs on a typical Linux machine are shell scripts.
+
+In this level, we will learn to read shell scripts. /challenge/run is a shell script that requires you to put in a secret password, but that password is hardcoded into the script iself! Read the script (using, say, cat), figure out the password, and get the flag!
+
+### Solve
+**Flag:** `pwn.college{QaCx55X9Gnt8WfQwbKIP41Zuo8T.0lMwgDOxwCN2gjNzEzW}`
+
+I read the script using cat and gave the correct password.
+```
+hacker@chaining~reading-shell-scripts:~$ cat /challenge/run
+#!/opt/pwn.college/bash
+
+read GUESS
+if [ "$GUESS" == "hack the PLANET" ]
+then
+        echo "CORRECT! Your flag:"
+        cat /flag
+else
+        echo "Read the /challenge/run file to figure out the correct password!"
+fi
+hacker@chaining~reading-shell-scripts:~$ /challenge/run 
+hack the PLANET
+CORRECT! Your flag:
+pwn.college{QaCx55X9Gnt8WfQwbKIP41Zuo8T.0lMwgDOxwCN2gjNzEzW}
+```
+
+### New Learnings
+I learnt how to read scripts using cat.
+
+### References

